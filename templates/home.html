@@ -1,0 +1,15 @@
+<!-- home.html in myapp/templates -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Search</title>
+</head>
+<body>
+    <form action="{% url 'search' %}" method="get">
+        <label for="search">Search Disease:</label>
+        <input type="text" id="search" name="q" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
