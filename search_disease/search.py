@@ -24,7 +24,7 @@ def search_treatment(query,text_contents):
     return result
 
 def disease_treatment(query):
-    folder_path='search_disease/text'
+    folder_path='media/text'
     text_contents = load_text_files(folder_path)
     search_results = search_disease_treatment(query, text_contents)
     return search_results
