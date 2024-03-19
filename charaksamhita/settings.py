@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2owhv)_t16e%h55t&+fgzure2yilqkpnn%@x&g&yvyn67((j&x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ankitgadling.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','ankitgadling.pythonanywhere.com']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'charaksamhita.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['charaksamhita/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
