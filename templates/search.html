@@ -4,62 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slokas and Explanations</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .sloka {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-        }
-        .sloka h2 {
-            margin-top: 0;
-        }
-        .explanation {
-            margin-top: 10px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- <header>
-        <h1>Slokas and Explanations</h1>
-    </header> -->
-    <div class="container">
-        <div class="sloka">
-            <h2>Information regarding the {{query}} in Charak Samhita</h2>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 max-w-screen-lg mt-10">
+        <div class="sloka bg-gray-200 rounded-md p-4 mb-4 border border-green-500">
+            <h2 class="text-xl font-bold mb-4">Information regarding the {{query}} in Charak Samhita</h2>
             {% if results %}
-            <!-- <p>{{ results }}</p> -->
-            {%for result in results%}
-            <p class="explanation">{{ result}}</p>
-            {% endfor %}
+                {% for result in results %}
+                    <p class="explanation text-lg text-gray-700">{{ result }}</p>
+                {% endfor %}
             {% else %}
-        <p>No results found.</p>
+                <p class="text-red-500">No results found.</p>
             {% endif %}
-            
         </div>
         <!-- Add more slokas and explanations here -->
-     
-
     </div>
 </body>
 </html>
-

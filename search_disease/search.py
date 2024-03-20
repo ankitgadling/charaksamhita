@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from googletrans import Translator
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,6 +35,13 @@ def disease_treatment(query):
     text_contents = load_text_files(folder_path)
     search_results = search_disease_treatment(query, text_contents)
     return search_results
+
+
+
+def translate_to_hindi(text):
+    translator = Translator()
+    translation = translator.translate(text, dest='hi')
+    return translation.text
 
 
 

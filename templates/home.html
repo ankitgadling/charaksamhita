@@ -1,15 +1,22 @@
-<!-- home.html in myapp/templates -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PDF Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charak Samhita Health Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <form action="{% url 'search' %}" method="get">
-        <label for="search">Search Disease:</label>
-        <input type="text" id="search" name="q" required>
-        <button type="submit">Search</button>
-    </form>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto mt-10 px-4">
+        <h1 class="text-center text-4xl text-green-600 mb-8"><i class="fas fa-clinic-medical"></i> Charak Samhita Health Portal</h1>
+        <form action="{% url 'search' %}" method="get" class="max-w-md mx-auto">
+            <label for="search" class="text-lg text-gray-700">Search Disease:</label>
+            <div class="flex items-center border-b border-b-2 border-green-500 py-2">
+                <input type="text" id="search" name="q" required class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
+                <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Search <i class="fas fa-search ml-2"></i></button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
+
