@@ -2,38 +2,44 @@ import os
 from pathlib import Path
 from googletrans import Translator
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+def categorize_paragraphs(text, disease_word):
+    categorized_paragraphs = []
 
-def load_text_files(folder_path):
-    """/text/"""
-    text_contents = []
-    for file_name in os.listdir(folder_path):
-        if file_name.endswith(".txt"):
-            with open(os.path.join(folder_path, file_name), "r", encoding="utf-8") as file:
-                text_contents.append(file.read())
-    return text_contents
+    # Tokenize text into paragraphs
+    paragraphs = text.split('\n\n')
 
-def search_disease_treatment(query, text_contents):
-    """Search for disease treatment information."""
-    results = []
-    for text in text_contents:
-        if query in text:
-            results.append(text)
-    return results
-def search_treatment(query,text_contents):
-    result=''
-    for text in text_contents:
-        if query in text:
-            result=result+text
-    return result
+    for paragraph in paragraphs:
+        if disease_word in paragraph:
+            categorized_paragraphs.append(paragraph)
+
+    return categorized_paragraphs
+
+def categorize_paragraphs_folder(input_folder,disease_word):
+    combined_text = []
+
+    files = os.listdir(input_folder)
+    for file_name in files:
+        if file_name.endswith('.txt'):  # Assuming text files
+            input_file_path = os.path.join(input_folder, file_name)
+
+            with open(input_file_path, 'r', encoding='utf-8') as input_file:
+                text = input_file.read()
+                paragraphs_containing_disease = categorize_paragraphs(text, disease_word)
+
+                if paragraphs_containing_disease:
+                    # combined_text += '\n\n'.join(paragraphs_containing_disease) + '\n\n'
+                    combined_text.append(paragraphs_containing_disease[0])
+
+    return combined_text
+
 
 def disease_treatment(query):
     folder_path = os.path.join(BASE_DIR, 'media', 'text')
-    # folder_path='media/text'
-    text_contents = load_text_files(folder_path)
-    search_results = search_disease_treatment(query, text_contents)
+    search_results=categorize_paragraphs_folder(folder_path,query)
     return search_results
 
 
