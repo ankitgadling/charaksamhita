@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charak Samhita Health Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto mt-10 px-4">
-        <h1 class="text-center text-4xl text-green-600 mb-8">Charak Samhita Health Portal</h1>
-        <form action="{% url 'search' %}" method="get" class="max-w-md mx-auto">
-            <label for="search" class="text-lg text-gray-700">Search Disease:</label>
-            <div class="flex items-center border-b border-b-2 border-green-500 py-2">
-                <input type="text" id="search" name="q" required class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
-                <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Search <i class="fas fa-search ml-2"></i></button>
-            </div>
-        </form>
-        <div class="max-w-md mx-auto">
-            <div class="flex items-center  py-2">
-                <a href="https://www.ncbi.nlm.nih.gov/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Visit  National Center for Biotechnology Information</a>
-                <!-- <form style="display:inline;" action="viewebooks/" method="get">
-                    <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded ml-4">View Book</button>
-                </form>     -->
-                <a href="viewebooks/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded ml-4">View Book</a>
-            </div>
-        </div>  
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Charak Samita Knowledge Extractor{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-10 px-4">
+    <form action="{% url 'search' %}" method="get" class="max-w-md mx-auto">
+        <label for="search" class="text-lg text-gray-700">Search Disease:</label>
+        <div class="flex items-center border-b border-b-2 border-green-500 py-2">
+            <input type="text" id="search" name="q" required class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
+            <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Search <i class="fas fa-search ml-2"></i></button>
+        </div>
+    </form>
+    <div class="max-w-md mx-auto">
+        <div class="flex items-center  py-2">
+            <a href="https://www.ncbi.nlm.nih.gov/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Visit  National Center for Biotechnology Information</a>
+            <a href="viewebooks/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded ml-4">View Book</a>
+        </div>
+    </div>  
+</div>
+{% endblock %}
+
 

@@ -12,7 +12,7 @@
     {% for result in ebooks %}
     <h1 class="capitalize text-center text-4xl text-green-600 mb-8">{{ result.title }}</h1>
     <div>
-        <iframe id="pdf" src="{{result.book.url}}#toolbar=0&zoom=350&page=1" type="application/pdf" class=" w-full h-screen mx-auto"></iframe>
+        <iframe id="pdf" src="{{result.book.url}}" type="application/pdf" class=" w-2/5 h-screen mx-auto"></iframe>
     </div>
     {% endfor %}
     {% else %}

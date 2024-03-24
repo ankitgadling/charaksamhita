@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Charak Samita Knowledge Extractor{% endblock %}
+
+{% block content %}
+    <div id="pdf-links" class="container mx-auto mt-5 px-4">
+        {% if ebooks %}
+            <ul class="flex flex-row">
+                <h2 class="mr-2">Select an EBook to view:</h2>
+                {% for result in ebooks %}
+                    <li class="mr-2" ><a class="pdf-link" href="{{ result.book.url }}">{{ result.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-red-500">No PDFs available.</p>
+        {% endif %}
+    </div>
+    
+    <div id="pdf-viewer" class="container mx-auto mt-8 flex justify-center items-center" style="display: none;"></div>
+
+    <!-- Include PDF.js scripts from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf_viewer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pdfLinks = document.querySelectorAll('.pdf-link');
+
+            pdfLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const pdfPath = this.getAttribute('href');
+                    loadPDF(pdfPath);
+                });
+            });
+
+            function loadPDF(pdfPath) {
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.innerHTML = ''; // Clear previous content
+
+                // Asynchronously load the PDF
+                pdfjsLib.getDocument(pdfPath).promise.then(function(pdfDoc) {
+                    // Iterate through each page of the PDF
+                    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                        // Fetch the page
+                        pdfDoc.getPage(pageNum).then(function(page) {
+                            // Set desired scale (adjust as needed)
+                            const scale = 1.5;
+                            const viewport = page.getViewport({ scale });
+
+                            // Prepare canvas using PDF page dimensions
+                            const canvas = document.createElement('canvas');
+                            canvas.style.maxWidth = "100%"
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            // Apply Tailwind CSS classes to center the canvas
+                            canvas.classList.add('mx-auto', 'my-4', 'block',);
+
+                            // Render PDF page into canvas context
+                            const renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+                            page.render(renderContext);
+
+                            // Append canvas to viewer element
+                            pdfViewer.appendChild(canvas);
+                        });
+                    }
+                }).catch(function(error) {
+                    console.error('Error loading PDF:', error);
+                });
+
+                // Show the PDF viewer
+                pdfViewer.style.display = 'block';
+            }
+        });
+    </script>
+{% endblock %}

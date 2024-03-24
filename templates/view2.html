@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Charak Samita Knowledge Extractor{% endblock %}
+
+{% block content %}
+    <div id="pdf-links" class="container mx-auto mt-10 px-4">
+        <h2>Select an EBook to view:</h2>
+        {% if ebooks %}
+            <ul>
+                {% for result in ebooks %}
+                    <li><a class="pdf-link" href="{{ result.book.url }}">{{ result.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-red-500">No PDFs available.</p>
+        {% endif %}
+    </div>
+    
+    <div id="pdf-viewer" class="container mx-auto mt-8 flex justify-center items-center" style="display: none;">
+        <div class="flex items-center mb-4">
+            <button id="zoom-out-btn" class="mr-2 px-3 py-1 bg-blue-500 text-white rounded-md focus:outline-none">Zoom Out</button>
+            <button id="zoom-in-btn" class="mr-2 px-3 py-1 bg-blue-500 text-white rounded-md focus:outline-none">Zoom In</button>
+            <input id="page-number-input" type="number" min="1" class="mr-2 px-3 py-1 border border-gray-300 rounded-md focus:outline-none" placeholder="Page">
+            <button id="go-to-page-btn" class="px-3 py-1 bg-blue-500 text-white rounded-md focus:outline-none">Go to Page</button>
+        </div>
+    </div>
+
+    <!-- Include PDF.js scripts from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf_viewer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pdfLinks = document.querySelectorAll('.pdf-link');
+
+            pdfLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const pdfPath = this.getAttribute('href');
+                    loadPDF(pdfPath);
+                });
+            });
+
+            function loadPDF(pdfPath) {
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.innerHTML = ''; // Clear previous content
+
+                // Asynchronously load the PDF
+                pdfjsLib.getDocument(pdfPath).promise.then(function(pdfDoc) {
+                    // Iterate through each page of the PDF
+                    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                        // Fetch the page
+                        pdfDoc.getPage(pageNum).then(function(page) {
+                            // Set desired scale (adjust as needed)
+                            let scale = 1.5;
+                            const viewport = page.getViewport({ scale });
+
+                            // Prepare canvas using PDF page dimensions
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            // Render PDF page into canvas context
+                            const renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+                            page.render(renderContext);
+
+                            // Append canvas to viewer element
+                            pdfViewer.appendChild(canvas);
+                        });
+                    }
+                }).catch(function(error) {
+                    console.error('Error loading PDF:', error);
+                });
+
+                // Show the PDF viewer
+                pdfViewer.style.display = 'block';
+
+                // Zoom In Button
+                document.getElementById('zoom-in-btn').addEventListener('click', function() {
+                    scale += 0.1;
+                    renderPage(pdfPath, scale);
+                });
+
+                // Zoom Out Button
+                document.getElementById('zoom-out-btn').addEventListener('click', function() {
+                    scale -= 0.1;
+                    renderPage(pdfPath, scale);
+                });
+
+                // Go to Page Button
+                document.getElementById('go-to-page-btn').addEventListener('click', function() {
+                    const pageNumber = parseInt(document.getElementById('page-number-input').value, 10);
+                    if (pageNumber > 0 && pageNumber <= pdfDoc.numPages) {
+                        renderPage(pdfPath, scale, pageNumber);
+                    }
+                });
+            }
+
+            function renderPage(pdfPath, scale, pageNumber) {
+                const pdfViewer = document.getElementById('pdf-viewer');
+                pdfViewer.innerHTML = ''; // Clear previous content
+
+                pdfjsLib.getDocument(pdfPath).promise.then(function(pdfDoc) {
+                    const pageToRender = pageNumber || 1; // Default to page 1 if not specified
+                    pdfDoc.getPage(pageToRender).then(function(page) {
+                        const viewport = page.getViewport({ scale });
+
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+
+                        pdfViewer.appendChild(canvas);
+                    });
+                }).catch(function(error) {
+                    console.error('Error rendering PDF page:', error);
+                });
+            }
+        });
+    </script>
+{% endblock %}

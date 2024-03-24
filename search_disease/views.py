@@ -10,7 +10,7 @@ def viewEbook(request):
     # if request.method=="GET":
     ebooks={'ebooks':ebooks}
     print(ebooks)
-    return render(request, "view.html",ebooks)
+    return render(request, "view3.html",ebooks)
 
 
 def home(request):
@@ -28,5 +28,11 @@ def search(request):
     else:
         results = None
     return render(request, 'search.html', {'results': results,'query':query})
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
 
 
