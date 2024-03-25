@@ -10,9 +10,9 @@
 </head>
 <body class="bg-gray-100 font-sans">
 
-<nav class="bg-gray-800 py-4 w-full">
-  <div class="w-4/5 mx-auto flex justify-between items-center">
-    <a class="text-white text-xl font-bold" href="#">Charak Samhita Health Portal</a>
+<nav class="bg-green-500 py-4 w-full">
+  <div class="w-4/5 mx-auto flex justify-between items-center flex-col md:flex-row">
+    <a class="text-white text-sm md:text-xl font-bold" href="#">Charak Samhita Health Portal</a>
     <div class="flex space-x-4">
       <a class="text-white hover:text-gray-300" href="{% url 'home' %}">Home</a>
       <a class="text-white hover:text-gray-300" href="{% url 'about' %}">About</a>
@@ -25,7 +25,7 @@
     {% block content %}
     {% endblock %}
 </div>
-<footer class="bg-gray-800 text-white text-center py-4 fixed bottom-0 w-full">
+<footer class="bg-green-500 text-white text-center py-4 fixed bottom-0 w-full">
     <div class="container mx-auto">
       <p>&copy; 2024 Charak Samhita Health Portal. All rights reserved.</p>
     </div>

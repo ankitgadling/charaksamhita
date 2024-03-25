@@ -5,16 +5,16 @@
 {% block content %}
 <div class="container mx-auto mt-10 px-4">
     <form action="{% url 'search' %}" method="get" class="max-w-md mx-auto">
-        <label for="search" class="text-lg text-gray-700">Search Disease:</label>
+        <label for="search" class="text-base md:text-3xl font-bold mb-4 text-green-500">Search Your Query:</label>
         <div class="flex items-center border-b border-b-2 border-green-500 py-2">
-            <input type="text" id="search" name="q" required class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
-            <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Search <i class="fas fa-search ml-2"></i></button>
+            <input type="text" id="search" placeholder="Enter your query to extract Information" name="q" required class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
+            <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Search</button>
         </div>
     </form>
     <div class="max-w-md mx-auto">
-        <div class="flex items-center  py-2">
+        <div class="flex items-center py-2 flex-col md:flex-row">
             <a href="https://www.ncbi.nlm.nih.gov/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded">Visit  National Center for Biotechnology Information</a>
-            <a href="viewebooks/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded ml-4">View Book</a>
+            <a href="viewebooks/" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded m-4">View Book</a>
         </div>
     </div>  
 </div>
