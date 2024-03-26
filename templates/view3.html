@@ -5,10 +5,10 @@
 {% block content %}
     <div id="pdf-links" class="container mx-auto mt-5 px-4">
         {% if ebooks %}
-            <ul class="flex flex-row">
-                <h2 class="mr-2">Select an EBook to view:</h2>
+            <ul class="flex flex-col md:flex-row justify-center items-center">
+                <h2 class="m-2">Select an EBook to view:</h2>
                 {% for result in ebooks %}
-                    <li class="mr-2" ><a class="pdf-link" href="{{ result.book.url }}">{{ result.title }}</a></li>
+                    <li class="m-2" ><a class="pdf-link m-1 p-1" href="{{ result.book.url }}">{{ result.title }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -30,6 +30,13 @@
                     event.preventDefault();
                     const pdfPath = this.getAttribute('href');
                     loadPDF(pdfPath);
+                    // Remove existing 'selected' class from all links
+                    pdfLinks.forEach(function(link) {
+                        link.classList.remove('bg-green-500', 'text-white');
+                    });
+
+                    // Add 'selected' class to the clicked link
+                    this.classList.add('bg-green-500', 'text-white');
                 });
             });
 
